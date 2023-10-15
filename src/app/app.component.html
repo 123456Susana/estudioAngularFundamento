@@ -1,0 +1,159 @@
+<h1>Formulario</h1>
+<form (ngSubmit)="seRegistra()" #myForm="ngForm">
+  <div class="input-group">
+    <label for="">Nombre</label>
+    <input type="text" name="nombre" required id="name" [(ngModel)]="form.nombre">
+    <p>Mensajes de Error</p>
+  </div>
+  <div class="input-group">
+    <label for="">Correo</label>
+    <input type="text" name="correo" required id="email" [(ngModel)]="form.correo">
+    <p>Mensajes de Error</p>
+  </div>
+  <div class="input-group">
+    <label for="">Contraseña</label>
+    <input type="text" name="contraseña" required id="password" [(ngModel)]="form.contrasena">
+    <p>Mensajes de Error</p>
+  </div>
+  <button [disabled]="myForm.invalid" type="submit">Registrar</button>
+</form>
+<hr>
+
+<h1>NgClass & NgStyle</h1>
+<input type="text" required #nameInput4="ngModel" [(ngModel)]="person.nombre">
+<!-- en el ngClass, dice, aplique esta clase(popi), si y solo si
+el nameInput es valido-->
+<hr class="lineaError"
+[ngClass]="{
+  'bien':nameInput4.valid,
+  'popi':nameInput4.invalid
+}"
+  >
+<p class="mensajeError" [class.popi]="nameInput4.invalid">
+  El campo es requerido
+</p>
+<div class="imgCambio">
+  <div>
+    <input type="number" [(ngModel)]="box.width">
+    <input type="number" [(ngModel)]="box.height">
+    <input type="color" [(ngModel)]="box.background">
+  </div>
+  <div>
+<!-- en el ngStyle, dice, quiero cambiar el width en pixeles
+ y asigno el valor que hay en el objeto box-->
+    <div [ngStyle]="{
+      'width.px':box.width,
+      'height.px':box.height,
+      'background-color':box.background,
+      'display':'block'
+    }"></div>
+  </div>
+</div>
+
+<hr>
+<h1>Clases y Estilos</h1>
+<input type="text" required #nameInput2="ngModel" [(ngModel)]="person.nombre">
+<!-- dentro del property binding se llama la clase y se le pone un nombre
+en este caso es popi, al ser la sentencia true se activara esta clase-->
+<p class="mensajeError" [class.popi]="nameInput2.invalid">
+  El campo es requerido
+</p>
+<label>Nombre</label>
+<input type="text" required #nameInput3="ngModel" [(ngModel)]="person.nombre">
+<p [style.font-style]="nameInput3.invalid ? 'italic' : 'normal'" >
+  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Porro earum corrupti voluptatibus enim pariatur soluta?
+</p>
+<div class="imgCambio">
+  <div>
+    <input type="text" [(ngModel)]="widthImg">
+  </div>
+  <div>
+    <img [style.width.%]="widthImg" [src]="person.avatar" alt="">
+  </div>
+</div>
+
+<hr>
+<h1>ngSwitch</h1>
+<input type="text" required [(ngModel)]="person.nombre">
+<div [ngSwitch]="person.nombre">
+  <p *ngSwitchCase="'susana'">
+    La persona es Susana
+  </p>
+  <p *ngSwitchCase="'estiven'">
+    La persona es Estiven
+  </p>
+  <p *ngSwitchCase="'poo'">
+    La persona es Poo
+  </p>
+  <p *ngSwitchDefault>No hace match</p>
+
+</div>
+
+<hr>
+<h1>*ngFor Objects</h1>
+<div class="artista--grid">
+  <div *ngFor="let artista of artistas">
+    <img [src]="artista.imagen" alt="imagenes">
+    <h2>{{artista.artista}}</h2>
+    <p>Tiempo en el mercado: {{artista.tiempoMercado}} años</p>
+  </div>
+</div>
+
+<hr>
+<h1>*ngFor</h1>
+<input type="text" [(ngModel)]="nuevoNombre">
+<button (click)="agregarNombre()">Agregar un nombre</button>
+<ul>
+  <li *ngIf="nombres.length === 0">No hay nombres</li>
+  <li *ngFor="let nombre of nombres; index as i">
+    {{i}} {{nombre}}
+    <button (click)="eliminarNombre(i)">Eliminar</button>
+  </li>
+</ul>
+
+<hr>
+<h1>*ngIf</h1>
+<input type="text"  [(ngModel)]="person.nombre">
+<p *ngIf="person.nombre === 'susana'">Soy Susana</p>
+<p *ngIf="person.nombre === 'estiven' && person.edad === 18 ; else myBlock">Soy Estiven</p>
+<ng-template #myBlock>
+<p>Bloque de else</p>
+</ng-template>
+
+<hr>
+<h1>NG MODEL</h1>
+<p> Nombre: {{person.nombre}}</p>
+<!-- #nameInput asi nombramos el imput para cogerlo en el valid-->
+<input type="text" required #nameInput="ngModel" [(ngModel)]="person.nombre" >
+<p>Valid: {{nameInput.valid}}</p>
+<p>Edad{{person.edad}}</p>
+<input type="number" max="18" min="10" #ageInput="ngModel" [(ngModel)]="person.edad" >
+<p>Valid: {{ageInput.valid}}</p>
+
+<hr>
+<h1>Eventos</h1>
+<button [disabled]="btnD">Enviar</button>
+<button (click)="cambioBoton()">Cambio Boton</button>
+<p>Edad{{person.edad}}</p>
+<button (click)="incrementoEdad()">Incremento Edad</button>
+<div class="box" (scroll)="desplazamiento($event)">
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio recusandae officia, asperiores soluta dicta, esse enim voluptates tempora voluptas repudiandae deleniti sed. Voluptatibus atque eligendi aliquam dicta ipsum optio nesciunt, vel, incidunt molestias rerum enim minus maiores voluptatum ipsam laudantium dolor. Mollitia quos expedita, fuga explicabo cumque facilis labore doloremque ad accusantium, perferendis repellat magnam dolore nostrum, voluptatem impedit assumenda repellendus ullam iusto. Hic at officia eaque quasi et soluta, praesentium perspiciatis excepturi amet alias laboriosam, consequatur ducimus deleniti beatae molestiae explicabo esse quisquam? Quaerat iusto vel excepturi numquam facilis. Nobis temporibus ipsa nostrum molestiae vitae in praesentium, reiciendis corporis!</p>
+</div>
+<p> Nombre: {{person.nombre}}</p>
+<input type="text" [value]="person.nombre" (keyup)="cambioNombre($event)">
+
+<hr>
+<h1>Propiedades</h1>
+<button [disabled]="btnD">Enviar</button>
+<input type="text" [value]="person.nombre">
+<progress max="100" [value]="person.edad"></progress>
+<img width="100" [src]="person.avatar" alt="">
+
+<hr>
+<h1>Hola mundo</h1>
+<h2>{{'Hola mundo'.repeat(5)}}</h2>
+<h3>Hola soy {{title}}</h3>
+<img width="200" src={{img}} alt="imagen">
+
+
+
